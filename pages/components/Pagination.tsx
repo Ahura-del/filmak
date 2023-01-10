@@ -16,7 +16,7 @@ const Pagination: NextPage<PaginationTypes> = ({
     PCounts.push(i);
   }
   return (
-    <div className="w-full py-3 flex flex-col gap-5 items-center justify-center">
+    <div className="w-full py-3 mb-5 flex flex-col gap-5 items-center justify-center">
       <p className="text-gray-500">
         Showing <span className="text-white"> {PCounts[0]}</span> to{" "}
         <span className="text-white"> {PCounts[PCounts.length - 1]}</span>
