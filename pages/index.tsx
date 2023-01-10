@@ -34,7 +34,7 @@ const Home: NextPage<any> = ({ res, page, q }) => {
 
   useEffect(() => {
     router.push(`/?q=${search}`);
-  }, [search, router]);
+  }, [search]);
   return (
     <>
       <Head>
