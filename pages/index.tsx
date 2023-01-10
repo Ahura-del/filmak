@@ -1,13 +1,7 @@
 import type { GetServerSideProps, NextPage } from "next";
-import Head from 'next/head'
+import Head from "next/head";
 import { useRouter } from "next/router";
-import {
-  ChangeEvent,
-  lazy,
-  Suspense,
-  useEffect,
-  useState,
-} from "react";
+import { ChangeEvent, lazy, Suspense, useEffect, useState } from "react";
 import Card from "./components/Card";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -43,36 +37,37 @@ const Home: NextPage<any> = ({ res, page, q }) => {
   }, [search]);
   return (
     <>
-  <Head>
-    <title>Filmak</title>
-  </Head>
-    <div className="w-full bg-gray-900 relative">
-      {/* nav */}
-      <Nav search={search} searchMovie={searchHandler} />
-      {/* header */}
-      <Header />
-      {/* carts */}
-      <div className="w-3/4 mx-auto grid grid-cols-5 gap-3 relative z-30">
-        {res.data?.map((item): DataType | any => (
-          <Card key={item.id} item={item} clickHandler={clickHandler} />
-        ))}
+      <Head>
+        <title>Filmak</title>
+      </Head>
+      <div className="w-full bg-gray-900 relative">
+        {/* nav */}
+        <Nav search={search} searchMovie={searchHandler} />
+        {/* header */}
+        <Header />
+        {/* carts */}
+        <div className="w-3/4 mx-auto grid grid-cols-5 gap-3 relative z-30">
+          {res.data?.map((item): DataType | any => (
+            <Card key={item.id} item={item} clickHandler={clickHandler} />
+          ))}
+        </div>
+        {/* pagination */}
+        <Pagination
+          pages={res.metadata.page_count}
+          incrementPage={incrementPage}
+          decrementPage={decrementPage}
+          currentPage={res.metadata.current_page}
+        />
+        {/* footer */}
+        <Footer />
+        {/* modal */}
+        {modal.show && (
+          <Suspense fallback={<p>Loading...</p>}>
+            <Modal id={modal.id} modalHandle={modalHandle} />
+          </Suspense>
+        )}
       </div>
-      {/* pagination */}
-      <Pagination
-        pages={res.metadata.page_count}
-        incrementPage={incrementPage}
-        decrementPage={decrementPage}
-        currentPage={res.metadata.current_page}
-      />
-      {/* footer */}
-      <Footer />
-      {modal.show && (
-        <Suspense fallback={<p>Loading...</p>}>
-          <Modal id={modal.id} modalHandle={modalHandle} />
-        </Suspense>
-      )}
-    </div>
-</>
+    </>
   );
 };
 

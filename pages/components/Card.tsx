@@ -18,6 +18,7 @@ const Card: NextPage<DataType> = ({ item , clickHandler }) => {
       <div className="basis-3/4 w-full h-full relative ">
         <Image
           src={item.poster}
+          alt={item.title}
           layout="fill"
           className="rounded-t-md"
           objectFit="cover"
