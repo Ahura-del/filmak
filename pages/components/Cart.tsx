@@ -22,9 +22,6 @@ const Cart: NextPage<DataType> = ({ item }) => {
           objectFit="cover"
         />
         <div className=" flex items-center justify-center w-full h-full group-hover:bg-[rgba(0,0,0,0.8)] transition-all duration-300  absolute top-0 right-0 rounded-t-md" >
-            {/* <p className="bg-transparent border-2 text-white w-12 h-12 group-hover:flex hidden transition-all duration-300 text-2xl items-center justify-center rounded-full" >
-
-            </p> */}
             <img src="/assets/more.png" className="hidden group-hover:inline-block " />
         </div>
         <div className="w-full absolute bottom-0 left-0 bg-gradient-to-t from-slate-900 to-transparent h-24" />
