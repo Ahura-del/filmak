@@ -13,7 +13,7 @@ const Cart: NextPage<DataType> = ({ item }) => {
     setGenre(genreName);
   }, [item]);
   return (
-    <div className="flex flex-col rounded-md bg-slate-900 w-full h-[500px] mb-5 cursor-pointer group hover:shadow-lg hover:scale-105 transition-all duration-300 ">
+    <div className="flex flex-col rounded-md bg-gray-800 w-full h-[500px] mb-5 cursor-pointer group hover:shadow-lg hover:scale-105 transition-all duration-300 ">
       <div className="basis-3/4 w-full h-full relative ">
         <Image
           src={item.poster}

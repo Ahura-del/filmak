@@ -4,7 +4,7 @@ import React, { useState } from "react";
 const Nav: NextPage = () => {
   const [searchVisible, setSearchVisible] = useState<boolean>(false);
   return (
-    <nav className="w-full py-4 bg-slate-900 mb-10 ">
+    <nav className="w-full py-4 bg-slate-900">
       <div className="w-3/4 mx-auto flex justify-between items-center">
         <p className="text-white font-semibold text-xl">Filmak</p>
         <div className="flex gap-5 ">
