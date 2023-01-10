@@ -1,16 +1,24 @@
 import type { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
-import Cart from "./components/Cart";
+import {
+  ChangeEvent,
+  lazy,
+  Suspense,
+  useEffect,
+  useState,
+} from "react";
+import Card from "./components/Card";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+const Modal = lazy(() => import("./components/Modal"));
 import Nav from "./components/Nav";
 import Pagination from "./components/Pagination";
 import { DataType } from "./lib/interfaces";
 
-const Home: NextPage<any> = ({ res, page }) => {
-  // console.log(res.metadata);
-  // console.log(page);
+const Home: NextPage<any> = ({ res, page, q }) => {
   const router = useRouter();
+  const [search, setSearch] = useState<string>("");
+  const [modal, setModal] = useState<any>({ show: false, id: 0 });
   const incrementPage = (): void => {
     router.push(`/?page=${page + 1}`);
   };
@@ -18,16 +26,30 @@ const Home: NextPage<any> = ({ res, page }) => {
     router.push(`/?page=${page - 1}`);
   };
 
+  const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+  const clickHandler = (id: number) => {
+    setModal({ show: true, id });
+  };
+
+  const modalHandle = () => {
+    setModal({ show: false, id: 0 });
+  };
+
+  useEffect(() => {
+    router.push(`/?q=${search}`);
+  }, [search]);
   return (
-    <div className="w-full bg-gray-900">
+    <div className="w-full bg-gray-900 relative">
       {/* nav */}
-      <Nav />
+      <Nav search={search} searchMovie={searchHandler} />
       {/* header */}
       <Header />
       {/* carts */}
       <div className="w-3/4 mx-auto grid grid-cols-5 gap-3 relative z-30">
         {res.data?.map((item): DataType | any => (
-          <Cart key={item.id} item={item} />
+          <Card key={item.id} item={item} clickHandler={clickHandler} />
         ))}
       </div>
       {/* pagination */}
@@ -39,21 +61,29 @@ const Home: NextPage<any> = ({ res, page }) => {
       />
       {/* footer */}
       <Footer />
+      {modal.show && (
+        <Suspense fallback={<p>Loading...</p>}>
+          <Modal id={modal.id} modalHandle={modalHandle} />
+        </Suspense>
+      )}
     </div>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({
-  query: { page = 1 },
-}) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const {
+    query: { page = 1, q = "" },
+  } = context;
+
   const response = await fetch(
-    `https://moviesapi.ir/api/v1/movies?page=${page}`
+    `https://moviesapi.ir/api/v1/movies?page=${page}&q=${q}`
   );
   const res = await response.json();
   return {
     props: {
       res,
       page: +page,
+      q,
     },
   };
 };

@@ -3,17 +3,18 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { DataType } from "../lib/interfaces";
 
-const Cart: NextPage<DataType> = ({ item }) => {
+const Card: NextPage<DataType> = ({ item , clickHandler }) => {
+
   const [genre, setGenre] = useState<string>("");
   useEffect(() => {
     let genreName = "";
-    item.genres.forEach((genre) => {
+    item.genres?.forEach((genre) => {
       genreName += genre + " ";
     });
     setGenre(genreName);
   }, [item]);
   return (
-    <div className="flex flex-col rounded-md bg-gray-800 w-full h-[500px] mb-5 cursor-pointer group hover:shadow-lg hover:scale-105 transition-all duration-300 ">
+    <div onClick={()=>clickHandler(item.id)} className="flex flex-col rounded-md bg-gray-800 w-full h-[500px] mb-5 cursor-pointer group hover:shadow-lg hover:scale-105 transition-all duration-300 ">
       <div className="basis-3/4 w-full h-full relative ">
         <Image
           src={item.poster}
@@ -40,4 +41,4 @@ const Cart: NextPage<DataType> = ({ item }) => {
   );
 };
 
-export default Cart;
+export default Card;

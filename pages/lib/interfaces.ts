@@ -9,6 +9,7 @@ export interface DataType {
     year: string;
     imdb_rating: string;
   };
+  clickHandler:(id:number)=>void
 }
 
 export interface ResponseType {

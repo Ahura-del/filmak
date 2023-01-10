@@ -1,8 +1,21 @@
 import { NextPage } from "next";
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { ChangeEvent, useCallback, useState } from "react";
 
-const Nav: NextPage = () => {
+// moviesapi.ir/api/v1/movies?q={name}&page={page}
+
+interface SearchType {
+  search:string;
+  searchMovie:(e: ChangeEvent<HTMLInputElement>)=>void
+}
+  const Nav: NextPage<SearchType> = ({search , searchMovie}) => {
   const [searchVisible, setSearchVisible] = useState<boolean>(false);
+  // const [search, setSearch] = useState<string>("");
+  // const router = useRouter();
+  // const searchMovie = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+  //   setSearch(e.target.value);
+  //   router.push(`/&name=${e.target.value}`);
+  // }, []);
   return (
     <nav className="w-full py-4 bg-slate-900">
       <div className="w-3/4 mx-auto flex justify-between items-center">
@@ -10,7 +23,9 @@ const Nav: NextPage = () => {
         <div className="flex gap-5 ">
           {searchVisible && (
             <input
+              onChange={searchMovie}
               type="search"
+              value={search}
               className="border-none  rounded-sm px-1 bg-slate-500 text-slate-100 placeholder:text-slate-100 focus:outline-none"
               placeholder="Search movie..."
             />
