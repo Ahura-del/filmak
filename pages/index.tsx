@@ -8,7 +8,7 @@ import Header from "./components/Header";
 const Modal = lazy(() => import("./components/Modal"));
 import Nav from "./components/Nav";
 import Pagination from "./components/Pagination";
-import { DataType } from "./lib/interfaces";
+import { DataType } from "../lib/interfaces";
 
 const Home: NextPage<any> = ({ res, page, q }) => {
   const router = useRouter();
@@ -34,7 +34,7 @@ const Home: NextPage<any> = ({ res, page, q }) => {
 
   useEffect(() => {
     router.push(`/?q=${search}`);
-  }, [search]);
+  }, [search, router]);
   return (
     <>
       <Head>
