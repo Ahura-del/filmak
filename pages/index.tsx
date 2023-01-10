@@ -1,4 +1,5 @@
 import type { GetServerSideProps, NextPage } from "next";
+import Head from 'next/head'
 import { useRouter } from "next/router";
 import {
   ChangeEvent,
@@ -41,6 +42,10 @@ const Home: NextPage<any> = ({ res, page, q }) => {
     router.push(`/?q=${search}`);
   }, [search]);
   return (
+    <>
+  <Head>
+    <title>Filmak</title>
+  </Head>
     <div className="w-full bg-gray-900 relative">
       {/* nav */}
       <Nav search={search} searchMovie={searchHandler} />
@@ -67,6 +72,7 @@ const Home: NextPage<any> = ({ res, page, q }) => {
         </Suspense>
       )}
     </div>
+</>
   );
 };
 
